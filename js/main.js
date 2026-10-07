@@ -22,3 +22,27 @@ if (menuToggle && mainNav) {
   });
 
 }
+
+// ========================================
+// ENQUIRY FORM
+// ========================================
+
+const contactForm = document.querySelector(".contact-form");
+
+if (contactForm) {
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(contactForm);
+
+    const enquiry = {
+      name: formData.get("name")?.trim(),
+      phone: formData.get("phone")?.trim(),
+      email: formData.get("email")?.trim(),
+      area: formData.get("area")?.trim(),
+      message: formData.get("message")?.trim()
+    };
+
+    console.log("Enquiry:", enquiry);
+  });
+}

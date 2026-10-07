@@ -1,8 +1,10 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "ready-set-drive-website",
+  "main": "src/worker.js",
   "compatibility_date": "2026-10-06",
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "binding": "ASSETS"
   }
 }
