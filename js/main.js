@@ -30,7 +30,7 @@ if (menuToggle && mainNav) {
 const contactForm = document.querySelector(".contact-form");
 
 if (contactForm) {
-  contactForm.addEventListener("submit", (event) => {
+  contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const formData = new FormData(contactForm);
@@ -43,6 +43,21 @@ if (contactForm) {
       message: formData.get("message")?.trim()
     };
 
-    console.log("Enquiry:", enquiry);
+    try {
+      const response = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(enquiry)
+      });
+
+      const result = await response.json();
+
+      console.log("Enquiry response:", result);
+
+    } catch (error) {
+      console.error("Enquiry error:", error);
+    }
   });
 }
