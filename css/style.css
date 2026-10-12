@@ -868,9 +868,9 @@ a {
 
 .contact-grid {
   display: grid;
-  grid-template-columns: .85fr 1.15fr;
-  gap: 28px;
-  max-width: 1000px;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 760px;
   margin: 0 auto;
 }
 
@@ -912,18 +912,6 @@ a {
 .contact-whatsapp .btn {
   width: 100%;
 }
-
-.contact-phone {
-  display: inline-block;
-  color: var(--rsd-blue);
-  font-size: 21px;
-  font-weight: 800;
-}
-
-.contact-phone:hover {
-  text-decoration: underline;
-}
-
 
 /* Contact form */
 
@@ -1005,6 +993,30 @@ a {
 .required {
     color: #d32f2f;
     font-weight: 700;
+}
+
+.contact-form-status {
+  display: none;
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.contact-form-status.success {
+  display: block;
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.contact-form-status.error {
+  display: block;
+  color: #991b1b;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
 }
 
 /* =========================================

@@ -33,31 +33,55 @@ if (contactForm) {
   contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const statusMessage = contactForm.querySelector(".contact-form-status");
+    const originalText = submitBtn.textContent;
+
+    statusMessage.textContent = "";
+    statusMessage.className = "contact-form-status";
+
     const formData = new FormData(contactForm);
 
-    const enquiry = {
-      name: formData.get("name")?.trim(),
-      phone: formData.get("phone")?.trim(),
-      email: formData.get("email")?.trim(),
-      area: formData.get("area")?.trim(),
-      message: formData.get("message")?.trim()
-    };
+    formData.append(
+      "access_key",
+      "5f9bcbc2-d800-4df7-9a4b-ce700375e9ba"
+    );
+
+    formData.append("subject", "Ready Set Drive Website Enquiry");
+    formData.append("from_name", "Ready Set Drive Website");
+
+    submitBtn.textContent = "Sending...";
+    submitBtn.disabled = true;
 
     try {
-      const response = await fetch("/api/enquiry", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(enquiry)
+        body: formData
       });
 
       const result = await response.json();
 
-      console.log("Enquiry response:", result);
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Unable to send enquiry.");
+      }
+
+      console.log("Enquiry sent successfully:", result);
+      contactForm.reset();
+
+      statusMessage.textContent =
+        "Thanks — your enquiry has been sent. We'll get back to you soon.";
+      statusMessage.classList.add("success");
 
     } catch (error) {
       console.error("Enquiry error:", error);
+
+      statusMessage.textContent =
+        "Sorry, we couldn't send your enquiry. Please try again or contact us on WhatsApp.";
+      statusMessage.classList.add("error");
+
+    } finally {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
     }
   });
 }
